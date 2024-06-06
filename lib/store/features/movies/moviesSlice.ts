@@ -16,9 +16,11 @@ const moviesSlice = createSlice({
 
   selectors: {
     selectMovies: (state) => state,
+    selectMovie: (state, id: string | null) =>
+      state.find((movie) => movie.id.toString() === id),
   },
 });
 
 export const { setMovies } = moviesSlice.actions;
-export const { selectMovies } = moviesSlice.selectors;
+export const { selectMovies, selectMovie } = moviesSlice.selectors;
 export default moviesSlice;
