@@ -1,0 +1,13 @@
+services:
+  nodejs:
+    image: plusquepro-image
+    container_name: plusquepro-container
+    build: .
+    volumes:
+      - .:/root/plusquepro
+      - /root/plusquepro/node_modules
+      - /root/plusquepro/.next
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
