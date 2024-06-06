@@ -4,12 +4,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface ITrend {
   time: TTrendingTime;
-  filter: string;
+  search: string;
 }
 
 export const initialTrendState: ITrend = {
   time: "day",
-  filter: "",
+  search: "",
 };
 
 const trendSlice = createSlice({
@@ -20,6 +20,10 @@ const trendSlice = createSlice({
       state.time = action.payload;
       return state;
     },
+    setTrendSearch(state, action: PayloadAction<string>) {
+      state.search = action.payload;
+      return state;
+    },
   },
 
   selectors: {
@@ -27,6 +31,6 @@ const trendSlice = createSlice({
   },
 });
 
-export const { setTrendTime } = trendSlice.actions;
+export const { setTrendTime, setTrendSearch } = trendSlice.actions;
 export const { selectTrend } = trendSlice.selectors;
 export default trendSlice;
