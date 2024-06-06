@@ -1,5 +1,4 @@
 import { IMovie } from "@/app/getData/page";
-import { Movies } from "@/models/Movie";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 

@@ -5,12 +5,14 @@ import dbConnect from "@/lib/db";
 import Movie from "@/models/Movie";
 import StoreProvider from "./StoreProvider";
 import { IMovie } from "./getData/page";
+import { initialTrendState } from "@/lib/store/features/trend/trendSlice";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const getMovies = async (): Promise<IMovie[]> => {
   await dbConnect();
   const movies = await Movie.find<IMovie>({});
+  //remove _id property to prevent nextjs message error
   const returnValue: IMovie[] = movies.map((movie) => {
     return {
       id: movie.id,
@@ -37,7 +39,7 @@ export default async function RootLayout({
 }>) {
   const movies = await getMovies();
   return (
-    <StoreProvider preloadedState={{ movies }}>
+    <StoreProvider preloadedState={{ movies, trend: initialTrendState }}>
       <html lang="en">
         <body className={inter.className}>{children}</body>
       </html>

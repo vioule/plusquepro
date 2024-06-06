@@ -1,7 +1,8 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import moviesSlice from "./features/movies/moviesSlice";
+import trendSlice from "./features/trend/trendSlice";
 
-export const rootReducer = combineSlices(moviesSlice);
+export const rootReducer = combineSlices(moviesSlice, trendSlice);
 
 const store = configureStore({
   reducer: rootReducer,
