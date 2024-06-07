@@ -1,6 +1,17 @@
-import { IMovie } from "@/app/getData/page";
 import Image from "next/image";
 import Link from "next/link";
+
+type TTrendingTime = "day" | "week";
+
+export interface IMovie {
+  id: number;
+  backdrop_path: string;
+  poster_path: string;
+  release_date: string;
+  original_title: string;
+  overview: string;
+  trending_time: TTrendingTime[];
+}
 
 interface ICard {
   movie: IMovie;

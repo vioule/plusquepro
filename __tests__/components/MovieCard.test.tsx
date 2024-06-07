@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import MovieCard from "@/components/MovieCard";
-import { IMovie } from "@/app/getData/page";
+import MovieCard, { IMovie } from "@/components/MovieCard";
 
 const movie: IMovie = {
   id: 1175156,
