@@ -4,6 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export const initialState: IMovie[] = [];
 
+interface updateMovieByIdPayload {
+  id: string;
+  title: string;
+  overview: string;
+  date: string;
+}
+
 const moviesSlice = createSlice({
   name: "movies",
   initialState,
@@ -16,6 +23,24 @@ const moviesSlice = createSlice({
       state = state.filter((movie) => movie.id.toString() !== action.payload);
       return state;
     },
+    updateMovieById(
+      state: IMovie[],
+      action: PayloadAction<updateMovieByIdPayload>
+    ) {
+      state = state.map((movie) => {
+        if (movie.id.toString() === action.payload.id) {
+          return {
+            ...movie,
+            release_date: action.payload.date,
+            original_title: action.payload.title,
+            overview: action.payload.overview,
+          };
+        } else {
+          return movie;
+        }
+      });
+      return state;
+    },
   },
 
   selectors: {
@@ -25,6 +50,7 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMovies, deleteMovieById } = moviesSlice.actions;
+export const { setMovies, deleteMovieById, updateMovieById } =
+  moviesSlice.actions;
 export const { selectMovies, selectMovie } = moviesSlice.selectors;
 export default moviesSlice;

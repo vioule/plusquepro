@@ -1,16 +1,18 @@
 "use client";
 
 import DeleteMovie from "@/components/DeleteMovie";
+import UpdateMovie from "@/components/UpdateMovie";
 import { selectMovie } from "@/lib/store/features/movies/moviesSlice";
 import { useAppSelector } from "@/lib/store/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 export default function Movie() {
   const [showDeleteMovie, setShowDeleteMovie] = useState(false);
+  const [showUpdateMovie, setShowUpdateMovie] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const movie = useAppSelector((state) => selectMovie(state, id));
@@ -35,12 +37,18 @@ export default function Movie() {
           <h1 className="text-xl font-bold">{movie?.original_title}</h1>
           <p>{movie?.overview}</p>
           <p className="text-xs">{movie?.release_date}</p>
-          <div>
+          <div className="flex gap-2">
             <button
               className="border-[1px] p-2 hover:bg-slate-50 rounded-md"
               onClick={() => setShowDeleteMovie(!showDeleteMovie)}
             >
               <MdDelete className="text-red-500" />
+            </button>
+            <button
+              className="border-[1px] p-2 hover:bg-slate-50 rounded-md"
+              onClick={() => setShowUpdateMovie(!showUpdateMovie)}
+            >
+              <MdEdit className="text-green-500" />
             </button>
           </div>
         </div>
@@ -50,6 +58,13 @@ export default function Movie() {
       </Link>
       {showDeleteMovie && (
         <DeleteMovie cancel={() => setShowDeleteMovie(false)} id={id!} />
+      )}
+      {showUpdateMovie && (
+        <UpdateMovie
+          cancel={() => setShowUpdateMovie(false)}
+          id={id!}
+          movie={movie}
+        />
       )}
     </div>
   ) : (
