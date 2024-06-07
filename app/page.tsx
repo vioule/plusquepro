@@ -7,6 +7,7 @@ import {
   setTrendTime,
 } from "@/lib/store/features/trend/trendSlice";
 import SearchBar from "@/components/SearchBar";
+import LogOut from "@/components/buttons/Logout";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center p-24 gap-4">
+      <LogOut />
       <div className="flex gap-2">
         <button
           className={`p-4 rounded-md ${
