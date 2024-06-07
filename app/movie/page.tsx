@@ -1,12 +1,16 @@
 "use client";
 
+import DeleteMovie from "@/components/DeleteMovie";
 import { selectMovie } from "@/lib/store/features/movies/moviesSlice";
 import { useAppSelector } from "@/lib/store/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { MdDelete } from "react-icons/md";
 
 export default function Movie() {
+  const [showDeleteMovie, setShowDeleteMovie] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const movie = useAppSelector((state) => selectMovie(state, id));
@@ -31,12 +35,22 @@ export default function Movie() {
           <h1 className="text-xl font-bold">{movie?.original_title}</h1>
           <p>{movie?.overview}</p>
           <p className="text-xs">{movie?.release_date}</p>
-          <div></div>
+          <div>
+            <button
+              className="border-[1px] p-2 hover:bg-slate-50 rounded-md"
+              onClick={() => setShowDeleteMovie(!showDeleteMovie)}
+            >
+              <MdDelete className="text-red-500" />
+            </button>
+          </div>
         </div>
       </div>
       <Link className="absolute right-0 m-4" href={"/"}>
         Home
       </Link>
+      {showDeleteMovie && (
+        <DeleteMovie cancel={() => setShowDeleteMovie(false)} id={id!} />
+      )}
     </div>
   ) : (
     <div> Movie not found</div>

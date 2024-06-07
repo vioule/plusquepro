@@ -12,6 +12,10 @@ const moviesSlice = createSlice({
       state = action.payload;
       return state;
     },
+    deleteMovieById(state: IMovie[], action: PayloadAction<string>) {
+      state = state.filter((movie) => movie.id.toString() !== action.payload);
+      return state;
+    },
   },
 
   selectors: {
@@ -21,6 +25,6 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMovies } = moviesSlice.actions;
+export const { setMovies, deleteMovieById } = moviesSlice.actions;
 export const { selectMovies, selectMovie } = moviesSlice.selectors;
 export default moviesSlice;
