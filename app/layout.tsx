@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { cookies } from "next/headers";
 import dbConnect from "@/lib/db";
 import Movie from "@/models/Movie";
 import StoreProvider from "./StoreProvider";
 import { IMovie } from "./getData/page";
 import { initialTrendState } from "@/lib/store/features/trend/trendSlice";
+import {
+  ISessionState,
+  initialState,
+} from "@/lib/store/features/session/sessionSlice";
+import { getSession } from "@/actions/session";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,8 +44,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const movies = await getMovies();
+  const jwt = cookies().get("jwt");
+  let session: ISessionState;
+  if (jwt) {
+    session = await getSession(jwt);
+  } else {
+    session = initialState;
+  }
   return (
-    <StoreProvider preloadedState={{ movies, trend: initialTrendState }}>
+    <StoreProvider
+      preloadedState={{ movies, trend: initialTrendState, session }}
+    >
       <html lang="en">
         <body className={inter.className}>{children}</body>
       </html>
