@@ -11,7 +11,7 @@ interface IEdit {
 export default function Edit({ onChange, error, type, value }: IEdit) {
   return (
     <>
-      <div className="relative">
+      <div className="relative" data-testid="edit">
         <input
           type={type}
           className={`p-4 border-[1px] rounded-md focus:drop-shadow-xl outline-none w-full ${
@@ -19,6 +19,7 @@ export default function Edit({ onChange, error, type, value }: IEdit) {
           }`}
           onChange={onChange}
           value={value}
+          data-testid="editInput"
         />
       </div>
       <ErrorMessage error={error} />
