@@ -9,6 +9,12 @@ db.createUser({
   ],
 });
 
+db.users.insertOne({
+  name: "MyUserTest",
+  email: "test@test.fr",
+  password: "$2a$10$A9.tOtiDLFOjtg..nD9NGuhnj9/ZumF1EAJ4..zlNJF2VdRzQzv5O",
+});
+
 db.movies.insertMany([
   {
     id: 1291143,
